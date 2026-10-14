@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SupplyWatch — quote-verified supply-chain alerts</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --critical: #f85149;
+    --warning: #d29922;
+    --info: #58a6ff;
+    --ok: #3fb950;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55; padding: 32px 20px 64px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  h1 { font-size: 26px; letter-spacing: -0.02em; }
+  h1 span { color: var(--ok); }
+  .tagline { color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+  .pipeline {
+    display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0 26px; font-family: var(--mono); font-size: 12.5px;
+  }
+  .pipeline .step { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; color: var(--muted); }
+  .pipeline .step b { color: var(--text); font-weight: 600; }
+  .pipeline .arrow { color: var(--muted); align-self: center; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px;
+  }
+  .card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 10px; }
+  pre.alert { font-family: var(--mono); font-size: 13px; white-space: pre-wrap; color: var(--text); }
+  .meta { color: var(--muted); font-size: 12.5px; margin-top: 10px; }
+  .change { border-left: 3px solid var(--border); }
+  .change.critical { border-left-color: var(--critical); }
+  .change.warning { border-left-color: var(--warning); }
+  .change.info { border-left-color: var(--info); }
+  .change-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .badge {
+    font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+    padding: 2px 8px; border-radius: 999px;
+  }
+  .badge.critical { background: rgba(248,81,73,.15); color: var(--critical); border: 1px solid rgba(248,81,73,.4); }
+  .badge.warning { background: rgba(210,153,34,.15); color: var(--warning); border: 1px solid rgba(210,153,34,.4); }
+  .badge.info { background: rgba(88,166,255,.15); color: var(--info); border: 1px solid rgba(88,166,255,.4); }
+  .change-head .item { font-weight: 600; }
+  .change-head .supplier { color: var(--muted); font-size: 13px; }
+  .detail { font-family: var(--mono); font-size: 13px; margin-bottom: 10px; }
+  .detail .old { color: var(--muted); text-decoration: line-through; }
+  .detail .new { color: var(--text); font-weight: 600; }
+  .quote-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+  .quote {
+    font-family: var(--mono); font-size: 12.5px; background: #0b0f14; border: 1px dashed var(--border);
+    border-radius: 6px; padding: 8px 10px; color: var(--ok); overflow-x: auto; white-space: pre-wrap;
+  }
+  .quote::before { content: "\201C"; color: var(--muted); }
+  .quote::after { content: "\201D"; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td.mono { font-family: var(--mono); font-size: 12.5px; }
+  .foot { color: var(--muted); font-size: 12.5px; margin-top: 26px; border-top: 1px solid var(--border); padding-top: 14px; }
+  .error { color: var(--warning); font-family: var(--mono); font-size: 13px; }
+  a { color: var(--info); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Supply<span>Watch</span></h1>
+    <span class="tagline">quote-verified supply-chain change monitoring</span>
+  </header>
+
+  <div class="pipeline">
+    <span class="step"><b>fetch</b></span><span class="arrow">→</span>
+    <span class="step"><b>extract</b> + quote</span><span class="arrow">→</span>
+    <span class="step"><b>verify</b> quote on page</span><span class="arrow">→</span>
+    <span class="step"><b>diff</b> vs previous</span><span class="arrow">→</span>
+    <span class="step"><b>alert</b></span>
+  </div>
+
+  <div class="card">
+    <h2>Alert</h2>
+    <pre class="alert" id="alert">Loading state…</pre>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div id="changes"></div>
+
+  <div class="card">
+    <h2>Item snapshots (verified fields)</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Field</th><th>Value</th><th>Verified quote</th></tr></thead>
+      <tbody id="items"></tbody>
+    </table>
+  </div>
+
+  <p class="foot">
+    No quote, no field — every value shown above was extracted together with the exact page text it came from
+    and re-checked against the fetched page before it was allowed into the diff.
+  </p>
+</div>
+
+<script>
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+fetch("data/state.json")
+  .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(render)
+  .catch((e) => {
+    document.getElementById("alert").innerHTML =
+      '<span class="error">Could not load data/state.json (' + esc(e.message) + ').\n' +
+      'Serve this folder over HTTP, e.g.  python -m http.server 8080</span>';
+  });
+
+function render(state) {
+  const changes = state.changes || [];
+  document.getElementById("alert").textContent =
+    state.alert_text || "No changes detected — watchlist matches the previous state.";
+  document.getElementById("meta").textContent =
+    "generated_at " + state.generated_at + " · items " + Object.keys(state.items || {}).length +
+    " · changes " + changes.length + " · llm_used " + state.llm_used;
+
+  document.getElementById("changes").innerHTML = changes.map((c) => `
+    <div class="card change ${esc(c.severity)}">
+      <div class="change-head">
+        <span class="badge ${esc(c.severity)}">${esc(c.severity.toUpperCase())}</span>
+        <span class="item">${esc(c.item_name)}</span>
+        <span class="supplier">${esc(c.supplier)} · field: ${esc(c.field)}</span>
+      </div>
+      <div class="detail">${esc(c.detail)}</div>
+      <div class="quote-label">verified quote from the page</div>
+      <div class="quote">${esc(c.quote)}</div>
+    </div>`).join("");
+
+  const rows = [];
+  for (const [id, snap] of Object.entries(state.items || {})) {
+    const fields = snap.fields || {};
+    const kinds = Object.keys(fields);
+    if (!kinds.length) {
+      rows.push(`<tr><td>${esc(snap.name)}</td><td class="mono">—</td><td class="mono">fetch error</td><td class="mono">${esc(snap.error || "")}</td></tr>`);
+      continue;
+    }
+    kinds.forEach((kind, i) => {
+      const f = fields[kind];
+      rows.push(`<tr>
+        <td>${i === 0 ? esc(snap.name) : ""}</td>
+        <td class="mono">${esc(kind)}</td>
+        <td class="mono">${esc(f.value)}</td>
+        <td class="mono">${esc(f.quote)}</td>
+      </tr>`);
+    });
+  }
+  document.getElementById("items").innerHTML = rows.join("");
+}
+</script>
+</body>
+</html>

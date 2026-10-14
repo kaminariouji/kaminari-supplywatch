@@ -1,0 +1,38 @@
+{
+  "name": "Demo factory watchlist (day 2 — supplier pages updated)",
+  "note": "Same items as watchlist.demo.json; the two mirror pages were updated to simulate a supplier changing lead time, price, and availability.",
+  "items": [
+    {
+      "id": "valve-dn50",
+      "name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/valve-dn50.html",
+      "fields": {
+        "price": ["price"],
+        "lead_time": ["lead time"],
+        "stock": ["stock"],
+        "moq": ["minimum order"]
+      }
+    },
+    {
+      "id": "bearing-6205",
+      "name": "Deep-groove ball bearing 6205-2RS",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/bearing-6205.html",
+      "fields": {
+        "price": ["price"],
+        "lead_time": ["lead time"],
+        "stock": ["stock"]
+      }
+    },
+    {
+      "id": "books-mystery",
+      "name": "Live check: Mystery category page (public site)",
+      "supplier": "books.toscrape.com (live public page)",
+      "url": "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html",
+      "fields": {
+        "price": ["price"]
+      }
+    }
+  ]
+}

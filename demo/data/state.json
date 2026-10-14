@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-10-14T17:28:38Z",
+  "items": {
+    "valve-dn50": {
+      "id": "valve-dn50",
+      "name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/valve-dn50.html",
+      "fetched_at": "2026-10-14T17:28:39Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 14.90",
+          "quote": "GBP 14.90",
+          "context": "GBP 14.90 per unit"
+        },
+        "lead_time": {
+          "value": "6 weeks",
+          "quote": "Lead time: 6 weeks",
+          "context": "Lead time: 6 weeks"
+        },
+        "stock": {
+          "value": "out of stock",
+          "quote": "Out of stock",
+          "context": "Out of stock"
+        },
+        "moq": {
+          "value": "50",
+          "quote": "Minimum order: 50",
+          "context": "Minimum order: 50"
+        }
+      },
+      "dropped_quotes": 0
+    },
+    "bearing-6205": {
+      "id": "bearing-6205",
+      "name": "Deep-groove ball bearing 6205-2RS",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/bearing-6205.html",
+      "fetched_at": "2026-10-14T17:28:39Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 3.35",
+          "quote": "GBP 3.35",
+          "context": "GBP 3.35 per unit"
+        },
+        "lead_time": {
+          "value": "5 days",
+          "quote": "Lead time: 5 days",
+          "context": "Lead time: 5 days"
+        },
+        "stock": {
+          "value": "backordered",
+          "quote": "Backordered",
+          "context": "Backordered"
+        }
+      },
+      "dropped_quotes": 0
+    },
+    "books-mystery": {
+      "id": "books-mystery",
+      "name": "Live check: Mystery category page (public site)",
+      "supplier": "books.toscrape.com (live public page)",
+      "url": "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html",
+      "fetched_at": "2026-10-14T17:28:40Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 47.82",
+          "quote": "£47.82",
+          "context": "£47.82"
+        }
+      },
+      "dropped_quotes": 0
+    }
+  },
+  "changes": [
+    {
+      "item_id": "valve-dn50",
+      "item_name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/valve-dn50.html",
+      "field": "price",
+      "old": "GBP 12.50",
+      "new": "GBP 14.90",
+      "quote": "GBP 14.90",
+      "severity": "critical",
+      "detail": "price moved +19.2% (GBP 12.50 -> GBP 14.90)"
+    },
+    {
+      "item_id": "valve-dn50",
+      "item_name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/valve-dn50.html",
+      "field": "lead_time",
+      "old": "2 weeks",
+      "new": "6 weeks",
+      "quote": "Lead time: 6 weeks",
+      "severity": "critical",
+      "detail": "lead time moved +200% (2 weeks -> 6 weeks)"
+    },
+    {
+      "item_id": "valve-dn50",
+      "item_name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/valve-dn50.html",
+      "field": "stock",
+      "old": "in stock (480 units)",
+      "new": "out of stock",
+      "quote": "Out of stock",
+      "severity": "critical",
+      "detail": "availability dropped: in stock (480 units) -> out of stock"
+    },
+    {
+      "item_id": "bearing-6205",
+      "item_name": "Deep-groove ball bearing 6205-2RS",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/bearing-6205.html",
+      "field": "stock",
+      "old": "in stock (2,400 units)",
+      "new": "backordered",
+      "quote": "Backordered",
+      "severity": "critical",
+      "detail": "availability dropped: in stock (2,400 units) -> backordered"
+    },
+    {
+      "item_id": "bearing-6205",
+      "item_name": "Deep-groove ball bearing 6205-2RS",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror-v2/bearing-6205.html",
+      "field": "price",
+      "old": "GBP 3.20",
+      "new": "GBP 3.35",
+      "quote": "GBP 3.35",
+      "severity": "warning",
+      "detail": "price moved +4.7% (GBP 3.20 -> GBP 3.35)"
+    }
+  ],
+  "alert_text": "SupplyWatch detected 5 verified change(s) across the watchlist (4 critical, 1 warning).\n- [CRITICAL] Stainless valve DN50 (316L) (Mirror Components Co (demo mirror)): price moved +19.2% (GBP 12.50 -> GBP 14.90)\n- [CRITICAL] Stainless valve DN50 (316L) (Mirror Components Co (demo mirror)): lead time moved +200% (2 weeks -> 6 weeks)\n- [CRITICAL] Stainless valve DN50 (316L) (Mirror Components Co (demo mirror)): availability dropped: in stock (480 units) -> out of stock\n- [CRITICAL] Deep-groove ball bearing 6205-2RS (Mirror Components Co (demo mirror)): availability dropped: in stock (2,400 units) -> backordered\n- [WARNING] Deep-groove ball bearing 6205-2RS (Mirror Components Co (demo mirror)): price moved +4.7% (GBP 3.20 -> GBP 3.35)\nEvery value above was verified against the supplier page text (quotes attached).",
+  "llm_used": false
+}

@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-10-14T17:28:36Z",
+  "items": {
+    "valve-dn50": {
+      "id": "valve-dn50",
+      "name": "Stainless valve DN50 (316L)",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror/valve-dn50.html",
+      "fetched_at": "2026-10-14T17:28:36Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 12.50",
+          "quote": "GBP 12.50",
+          "context": "GBP 12.50 per unit"
+        },
+        "lead_time": {
+          "value": "2 weeks",
+          "quote": "Lead time: 2 weeks",
+          "context": "Lead time: 2 weeks"
+        },
+        "stock": {
+          "value": "in stock (480 units)",
+          "quote": "In stock (480 units)",
+          "context": "In stock (480 units)"
+        },
+        "moq": {
+          "value": "50",
+          "quote": "Minimum order: 50",
+          "context": "Minimum order: 50"
+        }
+      },
+      "dropped_quotes": 0
+    },
+    "bearing-6205": {
+      "id": "bearing-6205",
+      "name": "Deep-groove ball bearing 6205-2RS",
+      "supplier": "Mirror Components Co (demo mirror)",
+      "url": "demo/mirror/bearing-6205.html",
+      "fetched_at": "2026-10-14T17:28:36Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 3.20",
+          "quote": "GBP 3.20",
+          "context": "GBP 3.20 per unit"
+        },
+        "lead_time": {
+          "value": "5 days",
+          "quote": "Lead time: 5 days",
+          "context": "Lead time: 5 days"
+        },
+        "stock": {
+          "value": "in stock (2,400 units)",
+          "quote": "In stock (2,400 units)",
+          "context": "In stock (2,400 units)"
+        }
+      },
+      "dropped_quotes": 0
+    },
+    "books-mystery": {
+      "id": "books-mystery",
+      "name": "Live check: Mystery category page (public site)",
+      "supplier": "books.toscrape.com (live public page)",
+      "url": "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html",
+      "fetched_at": "2026-10-14T17:28:38Z",
+      "status": 200,
+      "error": null,
+      "fields": {
+        "price": {
+          "value": "GBP 47.82",
+          "quote": "£47.82",
+          "context": "£47.82"
+        }
+      },
+      "dropped_quotes": 0
+    }
+  },
+  "changes": [],
+  "alert_text": null,
+  "llm_used": false
+}
